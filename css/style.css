@@ -1,0 +1,73 @@
+:root {
+  --color-primary: #4A3B45;   
+  --color-secondary: #B7C9D3; 
+  --color-background: #EFE7D0; 
+  --color-surface: #FFFFFF;    
+  --color-text-dark: #2E2630;  
+  --color-text-light: #F5F1E8; 
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-dark);
+  font-family: 'Segoe UI', sans-serif;
+}
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background-color: var(--color-primary);
+}
+
+.sidebar h4 {
+  color: var(--color-text-light);
+}
+
+.sidebar .nav-link {
+  color: var(--color-text-light);
+  opacity: 0.85;
+}
+
+.sidebar .nav-link:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .nav-link.active {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+#topnavbar {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.content {
+  min-height: 100vh;
+}
+.stat-card {
+  border: none;
+  border-radius: 12px;
+  background-color: var(--color-surface);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+.stat-card .card-subtitle {
+  color: var(--color-primary);
+  opacity: 0.7;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.stat-card .card-title {
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-top: 0.4rem;
+}
