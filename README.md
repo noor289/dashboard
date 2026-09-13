@@ -4,7 +4,7 @@ A responsive café analytics dashboard built with **Bootstrap 5**, **jQuery**, a
 
 ## Live Demo
 
-[View Live Dashboard](PASTE_YOUR_DEPLOYED_LINK_HERE)
+[View Live Dashboard](https://dashboard-tau-rouge-59.vercel.app/)
 
 ## Features
 
