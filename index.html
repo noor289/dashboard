@@ -3,122 +3,218 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>My Dashboard</title>
-
+  <title>Café Analytics Dashboard</title>
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet"
   >
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  >
   <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
-
   <div class="d-flex">
-
     <div class="sidebar d-flex flex-column p-3" id="sidebar">
-
-      <h4 class="text-center mb-4">
-        My Dashboard
-      </h4>
-
-      <ul class="nav nav-pills flex-column mb-auto">
-
+      <div class="mb-4">
+        <h4 class="mb-0">☕ Brew Analytics</h4>
+      </div>
+      <ul class="nav nav-pills flex-column mb-auto" id="sidebarNav">
         <li class="nav-item">
-          <a href="#" class="nav-link active">
+          <a href="#" class="nav-link active" data-title="Overview" data-page="page-overview">
             Overview
           </a>
         </li>
-
         <li>
-          <a href="#" class="nav-link">
-            Reports
+          <a href="#" class="nav-link" data-title="Menu Performance" data-page="page-menu">
+            Menu Performance
           </a>
         </li>
-
         <li>
-          <a href="#" class="nav-link">
-            Analytics
+          <a href="#" class="nav-link" data-title="Sales Trends" data-page="page-trends">
+            Sales Trends
           </a>
         </li>
-
-        <li>
-          <a href="#" class="nav-link">
-            Settings
-          </a>
-        </li>
-
       </ul>
-
     </div>
-
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
     <div class="content flex-grow-1">
-
       <nav class="navbar navbar-expand-lg px-4" id="topnavbar">
-
-        <span class="navbar-brand mb-0 h1">
-          Overview
-        </span>
-
-      </nav>
-
-      <div class="container-fluid p-4">
-
-        <div class="row g-3 mb-4">
-
-          <div class="col-md-3 col-sm-6">
-            <div class="card stat-card">
-              <div class="card-body">
-                <h6 class="card-subtitle">Total Sales</h6>
-                <h3 class="card-title">$24,500</h3>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-3 col-sm-6">
-            <div class="card stat-card">
-              <div class="card-body">
-                <h6 class="card-subtitle">New Users</h6>
-                <h3 class="card-title">1,240</h3>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-3 col-sm-6">
-            <div class="card stat-card">
-              <div class="card-body">
-                <h6 class="card-subtitle">Orders</h6>
-                <h3 class="card-title">312</h3>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-3 col-sm-6">
-            <div class="card stat-card">
-              <div class="card-body">
-                <h6 class="card-subtitle">Revenue Growth</h6>
-                <h3 class="card-title">+18%</h3>
-              </div>
-            </div>
-          </div>
-
+        <div class="d-flex align-items-center">
+          <button class="btn-hamburger me-3" id="sidebarToggleBtn">☰</button>
+          <span class="navbar-brand-mini me-3 d-none" id="navbarBrandMini">☕ Brew Analytics</span>
+          <span class="navbar-brand mb-0 h1" id="navbarTitle">Café Overview</span>
         </div>
-
+        <button class="btn btn-refresh" id="refreshBtn">
+          ⟳ Refresh Data
+        </button>
+      </nav>
+      <div class="container-fluid p-4">
+        <div id="page-overview" class="page-section">
+          <div class="row g-3 mb-4">
+            <div class="col-md-3 col-sm-6">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <h6 class="card-subtitle">Today's Revenue</h6>
+                  <h3 class="card-title" id="statRevenue">$1,842</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <h6 class="card-subtitle">Cups Sold Today</h6>
+                  <h3 class="card-title" id="statCups">356</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <h6 class="card-subtitle">Best Seller</h6>
+                  <h3 class="card-title" id="statBestSeller">Cappuccino</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card stat-card">
+                <div class="card-body">
+                  <h6 class="card-subtitle">Avg. Order Value</h6>
+                  <h3 class="card-title" id="statAOV">$5.20</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row g-3 mb-3">
+            <div class="col-12">
+              <div class="card chart-card">
+                <div class="card-body">
+                  <h5 class="chart-title">Weekly Sales Trend</h5>
+                  <canvas id="salesTrendChart" height="90"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-5">
+              <div class="card chart-card">
+                <div class="card-body">
+                  <h5 class="chart-title">Best-Selling Drinks</h5>
+                  <canvas id="bestSellersChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="card chart-card">
+                <div class="card-body">
+                  <h5 class="chart-title">Revenue by Category</h5>
+                  <canvas id="revenueCategoryChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="page-menu" class="page-section d-none">
+          <div class="row g-3">
+            <div class="col-md-5">
+              <div class="card chart-card">
+                <div class="card-body">
+                  <h5 class="chart-title">Best-Selling Drinks</h5>
+                  <canvas id="bestSellersChart2"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="card chart-card">
+                <div class="card-body">
+                  <h5 class="chart-title">Menu Items</h5>
+                  <div class="table-responsive">
+                    <table class="table menu-table">
+                      <thead>
+                        <tr>
+                          <th>Item</th>
+                          <th>Category</th>
+                          <th>Units Sold</th>
+                          <th>Revenue</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Cappuccino</td>
+                          <td>Coffee</td>
+                          <td>120</td>
+                          <td>$480</td>
+                        </tr>
+                        <tr>
+                          <td>Latte</td>
+                          <td>Coffee</td>
+                          <td>95</td>
+                          <td>$399</td>
+                        </tr>
+                        <tr>
+                          <td>Espresso</td>
+                          <td>Coffee</td>
+                          <td>60</td>
+                          <td>$180</td>
+                        </tr>
+                        <tr>
+                          <td>Iced Coffee</td>
+                          <td>Cold Drinks</td>
+                          <td>50</td>
+                          <td>$210</td>
+                        </tr>
+                        <tr>
+                          <td>Croissant</td>
+                          <td>Pastries</td>
+                          <td>40</td>
+                          <td>$140</td>
+                        </tr>
+                        <tr>
+                          <td>Mocha</td>
+                          <td>Coffee</td>
+                          <td>31</td>
+                          <td>$124</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="page-trends" class="page-section d-none">
+          <div class="row g-3 mb-3">
+            <div class="col-12">
+              <div class="card chart-card">
+                <div class="card-body">
+                  <h5 class="chart-title">Monthly Revenue Trend</h5>
+                  <canvas id="monthlyTrendChart" height="90"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row g-3">
+            <div class="col-12">
+              <div class="card chart-card">
+                <div class="card-body">
+                  <h5 class="chart-title">This Week vs Last Week</h5>
+                  <canvas id="weekComparisonChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
     </div>
-
   </div>
-
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  <script src="js/charts.js"></script>
   <script src="js/script.js"></script>
-
 </body>
 </html>
